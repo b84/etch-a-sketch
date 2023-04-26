@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch - DOM manipulation assignment</title>
+</head>
+<style>
+    .etchContainer{
+        width:600px;
+        height:600px;
+        display:flex;
+        flex-wrap:wrap;
+        border:1px solid;
+    }
+    .box{
+        width:37.5px;
+        height:37.5px;
+    }
+    button{margin:20px;}
+</style>
+<body>
+
+    <button id="gridChanger">Change Grid Size</button>
+    <div id="startGrid"></div>
+    <div id="newGrid"></div>
+
+</body>
+<script>
+
+    const gridContainer = document.getElementById('newGrid');
+
+//If I'm making a (x*x) grid and the container is 600x600px then each box dim is (600 / x) for both length and width.
+//Number of boxes = (x*x)
+
+//For dynamic grids width and height need to be calculated
+
+//Calculate the number of boxes in a 600x600px canvas/container
+
+const button = document.getElementById('gridChanger');
+const temp = document.getElementById('startGrid');
+temp.classList.add('etchContainer')
+
+    for (i = 0; i < 256; i++) {
+    const i = document.createElement('div')
+    i.classList.add('box');
+    temp.appendChild(i);
+    i.addEventListener("mouseover",()=>{
+        i.style.background = "black";
+    })
+}
+
+
+button.addEventListener("click",()=>{
+
+    let gridSize = parseInt(prompt("Choose the number of squares per side."));
+    if (gridSize >100){
+        alert('Please choose below 100 squares.')
+    } else {
+    temp.remove();
+    gridContainer.classList.add('etchContainer')
+    let boxDim = 600 / gridSize;
+    let numberofBoxes = gridSize*gridSize;
+
+    for (i = 0; i < numberofBoxes; i++) {
+    const i = document.createElement('div')
+    i.classList.add('box');
+    i.style.width= boxDim+'px';
+    i.style.height= boxDim+'px';
+    gridContainer.appendChild(i);
+    i.addEventListener("mouseover",()=>{
+        i.style.background = "black";
+    })
+    };
+    }
+})
+
+
+//   let box = document.querySelector('.box');
+//   let numberofBoxes = 16;
+//    let boxDim = 600 / numberofBoxes;
+
+
+
+
+</script>
+</html>
