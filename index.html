@@ -23,9 +23,9 @@
 <body>
 
     <button id="gridChanger">Change Grid Size</button>
-    <div id="startGrid"></div>
-    <div id="newGrid"></div>
-
+    <div id="container">
+    <div id="canvas" class="etchContainer"></div>
+    </div>
 </body>
 <script>
 
@@ -39,13 +39,13 @@
 //Calculate the number of boxes in a 600x600px canvas/container
 
 const button = document.getElementById('gridChanger');
-const temp = document.getElementById('startGrid');
-temp.classList.add('etchContainer')
+const canvas = document.getElementById('canvas');
+const container = document.getElementById('container');
 
     for (i = 0; i < 256; i++) {
     const i = document.createElement('div')
     i.classList.add('box');
-    temp.appendChild(i);
+    canvas.appendChild(i);
     i.addEventListener("mouseover",()=>{
         i.style.background = "black";
     })
@@ -58,8 +58,13 @@ button.addEventListener("click",()=>{
     if (gridSize >100){
         alert('Please choose below 100 squares.')
     } else {
-    temp.remove();
-    gridContainer.classList.add('etchContainer')
+    const boxes = Array.from(document.querySelectorAll('.box'));
+    
+    //clears canvas by removing all child nodes
+    while (canvas.firstChild){
+        canvas.removeChild(canvas.firstChild);
+    }
+
     let boxDim = 600 / gridSize;
     let numberofBoxes = gridSize*gridSize;
 
@@ -68,11 +73,15 @@ button.addEventListener("click",()=>{
     i.classList.add('box');
     i.style.width= boxDim+'px';
     i.style.height= boxDim+'px';
-    gridContainer.appendChild(i);
+    canvas.appendChild(i);
     i.addEventListener("mouseover",()=>{
         i.style.background = "black";
     })
     };
+
+
+  
+   
     }
 })
 
